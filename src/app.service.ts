@@ -25,10 +25,10 @@ export class LaptopsService {
   
   async searchLaptopsByName(name: string,page:number): Promise<any[]> {
     const filePath = 'final.csv'; 
-    const laptops = await this.readCsvFile(filePath,page,20);
+    const laptops = await this.readCsvFile(filePath,1,2000);
   
     const filteredLaptops = laptops.filter(laptop => laptop.Name.toLowerCase().includes(name.toLowerCase()));
-    return filteredLaptops;
+    return this.paginateArray(filteredLaptops,20,page);
   }
   async filterBySource(data: any[], source: string,page:number): Promise<any[]> {
     var filteredObjects = [];

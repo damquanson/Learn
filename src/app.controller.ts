@@ -36,7 +36,7 @@ export class LaptopsController {
     return laptopSmall;
   }
   @Get('search')
-  async searchLaptopsByName(@Query('name') name: string,@Query('page',ParseIntPipe) page:number): Promise<any[]> {
+  async searchLaptopsByName(@Query('name') name: string,@Query('page') page:number=1): Promise<any[]> {
     const laptopSmall = await this.laptopsService.searchLaptopsByName(name,page);
     const laptopFull =await this.laptopsService.readCsvFile(filePath,1,2000);
     laptopSmall.forEach((smallLaptop) => {
