@@ -6,10 +6,10 @@ import { LaptopsService } from './app.service';
 export class LaptopsController {
   constructor(private readonly laptopsService: LaptopsService) {}
   @Get('filter')
-  async getFptRecords(@Query('source') source:string,@Query('page',ParseIntPipe) page:number): Promise<any[]> {
-    const data = await this.laptopsService.readCsvFile(filePath,page,10);
+  async getFptRecords(@Query('source') source:string,@Query('page') page:number=1): Promise<any[]> {
+    const data = await this.laptopsService.readCsvFile(filePath,1,2000);
     
-    const laptopSmall = await this.laptopsService.filterBySource(data, source);
+    const laptopSmall = await this.laptopsService.filterBySource(data, source,page);
     
     const laptopFull =await this.laptopsService.readCsvFile(filePath,1,2000);
     laptopSmall.forEach((smallLaptop) => {
@@ -22,7 +22,7 @@ export class LaptopsController {
     return laptopSmall;
   }
   @Get()
-  async getAllLaptops(@Query('page',ParseIntPipe) page:number): Promise<any[]> {
+  async getAllLaptops(@Query('page') page:number=1): Promise<any[]> {
     const laptopFull =await this.laptopsService.readCsvFile(filePath,1,2000);
     const laptopSmall = await this.laptopsService.readCsvFile(filePath,page,10);
     laptopSmall.forEach((smallLaptop) => {
