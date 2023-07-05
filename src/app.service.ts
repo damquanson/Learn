@@ -39,7 +39,7 @@ for (var i = 0; i < data.length; i++) {
     filteredObjects.push(data[i]);
   }
 }
-return this.paginateArray(filteredObjects,20,page)
+return this.paginateArray(filteredObjects,50,page)
   }
 
 
